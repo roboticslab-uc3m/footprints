@@ -1,0 +1,33 @@
+
+/**
+@brief The main, catch-all namespace for TEO.
+ */
+namespace teo {}
+
+/**
+ * \defgroup footprints_libraries footprints Libraries
+ *
+ * @brief footprints libraries.
+ *
+ */
+
+/**
+ * \defgroup footprints_programs footprints Programs
+ *
+ * @brief footprints programs.
+ */
+
+/**
+ * \defgroup footprints_applications footprints Applications (Collections of Programs)
+ *
+ * @brief footprints applications (collections of programs).
+ */
+
+/**
+ * \defgroup footprints_examples footprints Examples
+ *
+ * @brief footprints examples.
+ */
+
+
+
