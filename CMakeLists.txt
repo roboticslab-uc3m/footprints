@@ -11,7 +11,7 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
-project(FOOTPRINTS)
+project(FOOTSTEPS)
 
 ### options: cpp libraries
 option(ENABLE_ExampleLibrary "Choose if you want to compile ExampleLibrary" TRUE)
