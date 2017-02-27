@@ -34,7 +34,6 @@ int main(int argc, char **argv) {
     ResourceFinder rf;
     rf.setVerbose(true);
     rf.setDefaultContext("LeftFootprint");
-    //rf.setDefaultConfigFile("manipWaiterExecManip.ini");
     rf.setDefaultConfigFile("/usr/local/share/teo/contexts/kinematics/leftLegKinematics.ini");
     rf.configure(argc, argv);
 

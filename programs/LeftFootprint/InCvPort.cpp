@@ -397,3 +397,5 @@ bool InCvPort::preprogrammedInitTrajectory()
 
 }  // namespace teo
 
+//      outCmdPortHead->write(cmd);  ejemplo del envio de datos
+//      yarp::os::Bottle cmd;

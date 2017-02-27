@@ -108,3 +108,6 @@ class InCvPort : public BufferedPort<Bottle> {
 }  // namespace teo
 
 #endif  // __IN_CV_PORT_HPP__
+
+
+//          yarp::os::Port *outCmdPortManip;    ejemplo para definir la variable de enviar datos
