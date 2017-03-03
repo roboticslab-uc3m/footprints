@@ -8,6 +8,7 @@ set(KEYWORD "leftFootprint")
 
 # Find YARP.  Point the YARP_DIR environment variable at your build.
 find_package(YARP REQUIRED)
+FIND_PACKAGE(TEO REQUIRED)
 
 # Search for source code.
 file(GLOB folder_source *.cpp *.cc *.c)
@@ -22,10 +23,10 @@ foreach(header_file ${folder_header})
 endforeach(header_file ${folder_header})
 
 # Inclue any directories needed for YARP
-include_directories(${YARP_INCLUDE_DIRS} ${XGNITIVE_INCLUDE_DIRS})
-
+include_directories(${YARP_INCLUDE_DIRS} ${XGNITIVE_INCLUDE_DIRS} ${TEO_INCLUDE_DIRS})
+message(${TEO_INCLUDE_DIRS})
 # Include directory needed for the Cartesian Control
-include_directories(${TEO_INCLUDE_DIRS})
+# include_directories(${TEO_INCLUDE_DIRS})
 
 # Set up our main executable.
 if (folder_source)
