@@ -23,6 +23,9 @@ option(ENABLE_rightFootprint "Choose if you want to compile rightFootprint" TRUE
 ### options: force default
 option(ENABLE_exampleExtraOption "Enable/disable option exampleExtraOption" TRUE)
 
+### options: force default
+option(ENABLE_FootStepsYarp_KdlSolver "Enable/disable compilation of FootStepsYarp_KdlSolver" TRUE)
+
 if(MSVC)
   MESSAGE(STATUS "Running on windows")    
   set(CMAKE_DEBUG_POSTFIX "d")

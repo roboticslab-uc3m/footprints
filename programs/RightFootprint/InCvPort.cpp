@@ -28,6 +28,19 @@ void InCvPort::onRead(Bottle& b) {
 
 /************************************************************************/
 
+void InCvPort::ReadFTSensorRight(Bottle& FTSensor){
+    //Funcion para leer los datos del sensor del pie derecho
+
+    _sensor_right.fx = FTSensor.get(0).asDouble();
+    _sensor_right.fy = FTSensor.get(1).asDouble();
+    _sensor_right.fz = FTSensor.get(2).asDouble();
+    _sensor_right.mx = FTSensor.get(3).asDouble();
+    _sensor_right.my = FTSensor.get(4).asDouble();
+    _sensor_right.mz = FTSensor.get(5).asDouble();
+}
+
+/************************************************************************/
+
 void InCvPort::strategyPositionDirect(Bottle& b)
 {
     if (a==0)    {

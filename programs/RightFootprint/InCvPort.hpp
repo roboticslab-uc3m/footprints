@@ -71,6 +71,8 @@ class InCvPort : public BufferedPort<Bottle> {
 
         void setFollow(int value);
 
+        void ReadFTSensorRight(Bottle& FTSensor);
+
     private:
 
         int follow;
@@ -78,6 +80,11 @@ class InCvPort : public BufferedPort<Bottle> {
         int numRobotJoints;
         int pepinito;
         double initpos;
+
+        struct SensorData {
+            double fx, fy, fz;
+            double mx, my, mz;
+        }_sensor_right;
 
         std::vector<double> currentQ;
         std::vector<double> beforeQ;

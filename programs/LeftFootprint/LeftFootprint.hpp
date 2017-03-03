@@ -36,18 +36,22 @@ namespace teo
 class LeftFootprint : public RFModule {
     public:
         bool configure(ResourceFinder &rf);
+        double getPosition();
 
     protected:
 
         InSrPort inSrPort;
         InCvPort inCvPort;
+        yarp::os::Port outFootPrintPort;
+
 
         //-- Robot device
-        yarp::dev::PolyDriver leftArmDevice;
+        yarp::dev::PolyDriver leftLegDevice;
         yarp::dev::IEncoders *iEncoders;
         yarp::dev::IPositionControl *iPositionControl;
         yarp::dev::IPositionDirect *iPositionDirect;
         yarp::dev::IVelocityControl *iVelocityControl;
+
 
         //-- Solver device
         yarp::dev::PolyDriver solverDevice;
@@ -56,6 +60,7 @@ class LeftFootprint : public RFModule {
         bool interruptModule();
         double getPeriod();
         bool updateModule();
+
 
 };
 

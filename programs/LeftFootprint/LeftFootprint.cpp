@@ -33,12 +33,12 @@ bool LeftFootprint::configure(ResourceFinder &rf) {
     leftLegOptions.put("local",localStr);
     std::string remoteStr("/");
     remoteStr += remote;
-    remoteStr += "/leftLeg";
-    leftLegOptions.put("remote",remoteStr);
+    remoteStr += "teoSim/leftLeg";
+    leftLegOptions.put("remote","/teoSim/leftLeg");
     leftLegDevice.open(leftLegOptions);
 
     if( ! leftLegDevice.isValid() )    {
-        printf("leftArm remote_controlboard instantiation not worked.\n");
+        printf("leftLeg remote_controlboard instantiation not worked.\n");
         return false;
     }
     if( ! leftLegDevice.view(iEncoders) )    {
@@ -81,11 +81,12 @@ bool LeftFootprint::configure(ResourceFinder &rf) {
     inCvPort.setICartesianSolver(iCartesianSolver);
 
     //-----------------OPEN LOCAL PORTS------------//
-    inSrPort.setInCvPortPtr(&inCvPort);
     inCvPort.useCallback();
-    inSrPort.useCallback();
-    inSrPort.open("/leftFootprint/DialogueManager/command:i");
-    inCvPort.open("/leftFootprint/cvBottle/state:i");
+    inCvPort.open("/leftFootprint/jr3/ch1:i");
+
+    outFootPrintPort.open("/leftFootprint/state:o");
+    inCvPort.setOutFootPrintPort(&outFootPrintPort);
+
 
     return true;
 }
@@ -113,10 +114,13 @@ bool LeftFootprint::interruptModule() {
     inSrPort.close();
 
     solverDevice.close();
-    leftArmDevice.close();
+    leftLegDevice.close();
     return true;
 }
 
 /************************************************************************/
+
+
+
 
 }  // namespace teo

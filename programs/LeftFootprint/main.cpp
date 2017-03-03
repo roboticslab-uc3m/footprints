@@ -26,10 +26,12 @@
 
 #include "LeftFootprint.hpp"
 
-
+using namespace std;
 using namespace yarp::os;
 
 int main(int argc, char **argv) {
+
+    double ang_0, ang_1, ang_2, ang_3;
 
     ResourceFinder rf;
     rf.setVerbose(true);
