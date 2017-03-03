@@ -8,6 +8,7 @@ set(KEYWORD "rightFootprint")
 
 # Find YARP.  Point the YARP_DIR environment variable at your build.
 find_package(YARP REQUIRED)
+FIND_PACKAGE(TEO REQUIRED)
 
 # Search for source code.
 file(GLOB folder_source *.cpp *.cc *.c)
