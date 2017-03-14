@@ -1,0 +1,78 @@
+<application>
+<name>teoStep App</name>
+
+<!-- locomotion -->
+
+    <module>
+        <name>launchLocomotion</name>
+        <parameters>--externalEncoderWait 1</parameters>
+        <node>/locomotion</node>
+    </module>
+
+    <module>
+        <name>yarpdev</name>
+        <parameters>--subdevice xsensmtx --device inertial --name /inertial</parameters>
+        <node>/locomotion</node>
+    </module>
+
+    <module>
+        <name>leftFootprint</name>
+        <parameters>--remote teo</parameters>
+        <node>/locomotion</node>
+    </module>
+    <connection>
+        <from>/jr3/ch1:o</from>
+        <to>/leftFootprint/jr3/ch1:i</to>
+    </connection>
+
+    <module>
+        <name>rightFootprint</name>
+        <parameters>--remote teo</parameters>
+        <node>/locomotion</node>
+    </module>
+    <connection>
+         <from>/jr3/ch0:o</from>
+        <to>/rightFootprint/jr3/ch0:i</to>
+    </connection>
+
+<!-- manipulation -->
+
+    <module>
+        <name>yarpdev</name>
+        <parameters>--device Jr3 --period 20 --name /jr3  --ports "(ch0:o ch1:o ch2:o ch3:o)" --channels 24 --ch0:o 0 5 0 5 --ch1:o 6 11 0 5 --ch2:o 12 17 0 5 --ch3:o 18 23 0 5</parameters>
+        <node>/manipulation</node>
+    </module>
+
+<!-- legs Cartesian Control -->
+
+    <module>
+        <name>python</name>
+        <parameters></parameters>
+        <node>localhost</node>
+    </module>
+    <connection>
+         <from>/leftFootprint/gui1:o</from>
+        <to>/python/gui1:i</to>
+    </connection>
+    <connection>
+         <from>/rightFootprint/gui0:o</from>
+        <to>/python/gui0:i</to>
+    </connection>
+
+    <module>
+        <name>launchTeoYarp</name>
+        <parameters>--device BasicCartesianControl --name /teo/rightLeg/CartesianControl --from /usr/local/share/teo/contexts/kinematics/rightLegKinematics.ini --angleRepr axisAngle --robot remote_controlboard --local /BasicCartesianControl/teo/rightLeg --remote /teo/rightLeg</parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name>launchTeoYarp</name>
+        <parameters>--device BasicCartesianControl --name /teo/leftLeg/CartesianControl --from /usr/local/share/teo/contexts/kinematics/leftLegKinematics.ini --angleRepr axisAngle --robot remote_controlboard --local /BasicCartesianControl/teo/leftLeg --remote /teo/leftLeg</parameters>
+        <node>localhost</node>
+    </module>
+
+</application>
+
+yarp.Network.connect("/leftFootprint/state:o", "/gui0:i") # Left foot
+yarp.Network.connect("/rightFootprint/state:o", "/gui1:i") # Right foot
+
