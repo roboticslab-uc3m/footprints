@@ -33,8 +33,8 @@ bool LeftFootprint::configure(ResourceFinder &rf) {
     leftLegOptions.put("local",localStr);
     std::string remoteStr("/");
     remoteStr += remote;
-    remoteStr += "teoSim/leftLeg";
-    leftLegOptions.put("remote","/teoSim/leftLeg");
+    remoteStr += "/leftLeg";
+    leftLegOptions.put("remote",remoteStr); //rightLegOptions.put("remote",remoteStr);
     leftLegDevice.open(leftLegOptions);
 
     if( ! leftLegDevice.isValid() )    {

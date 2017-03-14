@@ -72,7 +72,7 @@ class InCvPort : public BufferedPort<Bottle> {
             this->iCartesianSolver = iCartesianSolver;
         }
 
-        /** Register an output Port for commands for the left arm. */
+        /** Register an output Port for commands for the left leg. */
         void setOutFootPrintPort(yarp::os::Port* outFootPrintPort);
 
         void setFollow(int value);

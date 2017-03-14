@@ -18,7 +18,7 @@
  *
  * <hr>
  *
- * This file can be edited at LeftLeg
+ * This file can be edited at RightLeg
  *
  */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
     rf.setVerbose(true);
     rf.setDefaultContext("RightFootprint");
     //rf.setDefaultConfigFile("manipWaiterExecManip.ini");
-    rf.setDefaultConfigFile("/usr/local/share/teo/contexts/kinematics/leftLegKinematics.ini");
+    rf.setDefaultConfigFile("/usr/local/share/teo/contexts/kinematics/rightLegKinematics.ini");
     rf.configure(argc, argv);
 
     teo::RightFootprint mod;

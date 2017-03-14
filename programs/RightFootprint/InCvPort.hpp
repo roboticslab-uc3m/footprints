@@ -47,6 +47,8 @@ namespace teo
 class InCvPort : public BufferedPort<Bottle> {
     public:
 
+        yarp::os::Port *outPort;
+
         InCvPort()        {
             follow = 0;
             a = 0;
@@ -69,9 +71,14 @@ class InCvPort : public BufferedPort<Bottle> {
             this->iCartesianSolver = iCartesianSolver;
         }
 
+        /** Register an output Port for commands for the right leg. */
+        void setOutFootPrintPort(yarp::os::Port* outFootPrintPort);
+
         void setFollow(int value);
 
         void ReadFTSensorRight(Bottle& FTSensor);
+
+        void calculatePosition();
 
     private:
 

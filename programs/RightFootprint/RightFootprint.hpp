@@ -36,11 +36,13 @@ namespace teo
 class RightFootprint : public RFModule {
     public:
         bool configure(ResourceFinder &rf);
+        double getPosition();
 
     protected:
 
         InSrPort inSrPort;
         InCvPort inCvPort;
+        yarp::os::Port outFootPrintPort;
 
         //-- Robot device
         yarp::dev::PolyDriver rightLegDevice;

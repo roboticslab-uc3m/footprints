@@ -36,7 +36,7 @@ void InCvPort::ReadFTSensorLeft(Bottle& FTSensor){
 
 void InCvPort::calculatePosition(){
     /** ----- Obtain current joint position --------------- **/
-        std::vector<double> currentQ(numRobotJoints);
+        std::vector<double> currentQ(6);
 
         if ( ! iEncoders->getEncoders( currentQ.data() ) )    { //obtencion de los valores articulares (encoders absolutos)
             CD_WARNING("getEncoders failed, not updating control this iteration.\n");
@@ -54,6 +54,8 @@ void InCvPort::calculatePosition(){
         yarp::os::Bottle state;
         state.addDouble(currentX[0]);
         state.addDouble(currentX[1]);
+        printf("La coordenada x del pie izquierdo es: %f\n", -currentX[1]);
+        printf("La coordenada y del pie izquierdo es: %f\n", currentX[0]);
         outPort->write(state);
 
 }

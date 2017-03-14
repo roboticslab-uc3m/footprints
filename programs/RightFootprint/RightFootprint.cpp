@@ -33,8 +33,8 @@ bool RightFootprint::configure(ResourceFinder &rf) {
     rightLegOptions.put("local",localStr);
     std::string remoteStr("/");
     remoteStr += remote;
-    remoteStr += "teoSim/rightLeg";
-    rightLegOptions.put("remote",remoteStr);
+    remoteStr += "/rightLeg";
+    rightLegOptions.put("remote",remoteStr); //rightLegOptions.put("remote",remoteStr);
     rightLegDevice.open(rightLegOptions);
 
     if( ! rightLegDevice.isValid() )    {
@@ -83,9 +83,11 @@ bool RightFootprint::configure(ResourceFinder &rf) {
     //-----------------OPEN LOCAL PORTS------------//
     //inSrPort.setInCvPortPtr(&inCvPort);
     inCvPort.useCallback();
-    //inSrPort.useCallback();
-    //inSrPort.open("/rightFootprint/DialogueManager/command:i");
     inCvPort.open("/rightFootprint/jr3/ch0:i");
+
+    outFootPrintPort.open("/rightFootprint/state:o");
+    inCvPort.setOutFootPrintPort(&outFootPrintPort);
+
 
     return true;
 }
