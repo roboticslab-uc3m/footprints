@@ -13,21 +13,21 @@ p1 = yarp.Port()
 p2 = yarp.Port()
 p3 = yarp.Port()
 # Open the port
-p0.open("/gui0:i")
-p1.open("/gui1:i")
-p2.open("/gui2:i")
-p3.open("/gui3:i")
+p0.open("/python/gui0:i")
+p1.open("/python/gui1:i")
+p2.open("/python/ch0:i")
+p3.open("/python/ch1:i")
 # Connect output and input ports
-yarp.Network.connect("/leftFootprint/state:o", "/gui0:i") # Left foot
-yarp.Network.connect("/rightFootprint/state:o", "/gui1:i") # Right foot
-yarp.Network.connect("/jr3/ch0:o", "/gui2:i") # Right foot sensor
-yarp.Network.connect("/jr3/ch1:o", "/gui3:i") # Left foot sensor
+yarp.Network.connect("/leftFootprint/gui1:o", "/python/gui1:i") # Left foot
+yarp.Network.connect("/rightFootprint/gui0:o", "/python/gui0:i") # Right foot
+yarp.Network.connect("/jr3/ch0:o", "/python/ch0:i") # Right foot sensor
+yarp.Network.connect("/jr3/ch1:o", "/python/ch1:i") # Left foot sensor
 
 # Read the data from de port
-data0 = yarp.Bottle() #left foot
-data1 = yarp.Bottle() #right foot
-data2 = yarp.Bottle()
-data3 = yarp.Bottle()
+data0 = yarp.Bottle() # right foot position
+data1 = yarp.Bottle() # left foot position
+data2 = yarp.Bottle() # jr3 right
+data3 = yarp.Bottle() # jr3 left
 
 
 fig = plt.figure()
@@ -46,23 +46,24 @@ while 1:
 
     # Reading YARP port
     print "Reading..."
-    p0.read(data0)
-    p1.read(data1)
-    p2.read(data2)
-    p3.read(data3)
+    p0.read(data0) # right foot postion
+    p1.read(data1) # left foot position
+    p2.read(data2) # jr3 right
+    p3.read(data3) # jr3 left
 
-    d = -data1.get(1).asDouble()*1000
-    h = data1.get(0).asDouble()*1000
-    d1 = data0.get(1).asDouble()*1000
-    h1 = data1.get(0).asDouble()*1000
+    dl = data1.get(1).asDouble()*1000
+    hl = data1.get(0).asDouble()*1000
+    dr = -data0.get(1).asDouble()*1000
+    hr = data0.get(0).asDouble()*1000
 
+    # jr3 right
     fx2 = data2.get(0).asDouble()
     fy2 = data2.get(1).asDouble()
     fz2 = data2.get(2).asDouble()
     mx2 = data2.get(3).asDouble()
     my2 = data2.get(4).asDouble()
     mz2 = data2.get(5).asDouble()
-
+    # jr3 left
     fx3 = data3.get(0).asDouble()
     fy3 = data3.get(1).asDouble()
     fz3 = data3.get(2).asDouble()
@@ -73,21 +74,21 @@ while 1:
     def RightFoot():
     	# Big semicircle
     	ang = np.linspace(2*PI,PI,180)
-    	x0 = d + 70*np.cos(ang)
-    	y0 = h + 70*np.sin(ang)
+    	x0 = dr + 70*np.cos(ang)
+    	y0 = hr + 70*np.sin(ang)
 
     	# Straightline
-    	x1 = np.ones(121) * (d-70)
-    	y1 = h + np.linspace(1,121,121) - 1
+    	x1 = np.ones(121) * (dr-70)
+    	y1 = hr + np.linspace(1,121,121) - 1
 
     	# Little circle
     	ang2 = np.linspace(PI,14.25*PI/180,180)
-    	x2 = d - 15 + 55*np.cos(ang2)
-    	y2 = h + 120 + 55*np.sin(ang2)
+    	x2 = dr - 15 + 55*np.cos(ang2)
+    	y2 = hr + 120 + 55*np.sin(ang2)
 
     	# Inclined line
-    	x3 = np.linspace(d - 15 + 55*np.cos(14.25*PI/180), d + 70*np.cos(2*PI), 100)
-    	y3 = np.linspace(h + 120 + 55*np.sin(14.25*PI/180), h + 70*np.sin(2*PI), 100)
+    	x3 = np.linspace(dr - 15 + 55*np.cos(14.25*PI/180), dr + 70*np.cos(2*PI), 100)
+    	y3 = np.linspace(hr + 120 + 55*np.sin(14.25*PI/180), hr + 70*np.sin(2*PI), 100)
 
    	x_sole = np.concatenate([x0,x1,x2,x3])
     	y_sole = np.concatenate([y0,y1,y2,y3])
@@ -98,21 +99,21 @@ while 1:
     def LeftFoot():
     	# Big semicircle
     	ang = np.linspace(2*PI,PI,180)
-    	x0 = d1 + 70*np.cos(ang)
-    	y0 = h1 + 70*np.sin(ang)
+    	x0 = dl + 70*np.cos(ang)
+    	y0 = hl + 70*np.sin(ang)
 
     	# Straightline
-    	x1 = np.ones(121) * (d1-70)
-    	y1 = h1 + np.linspace(1,121,121) - 1
+    	x1 = np.ones(121) * (dl-70)
+    	y1 = hl + np.linspace(1,121,121) - 1
 
     	# Little circle
     	ang2 = np.linspace(PI,14.25*PI/180,180)
-    	x2 = d1 - 15 + 55*np.cos(ang2)
-    	y2 = h1 + 120 + 55*np.sin(ang2)
+    	x2 = dl - 15 + 55*np.cos(ang2)
+    	y2 = hl + 120 + 55*np.sin(ang2)
 
     	# Inclined line
-    	x3 = np.linspace(d1 - 15 + 55*np.cos(14.25*PI/180), d1 + 70*np.cos(2*PI), 100)
-    	y3 = np.linspace(h1 + 120 + 55*np.sin(14.25*PI/180), h1 + 70*np.sin(2*PI), 100)
+    	x3 = np.linspace(dl - 15 + 55*np.cos(14.25*PI/180), dl + 70*np.cos(2*PI), 100)
+    	y3 = np.linspace(hl + 120 + 55*np.sin(14.25*PI/180), hl + 70*np.sin(2*PI), 100)
 
     	x_sole = np.concatenate([-x0,-x1,-x2,-x3])
     	y_sole = np.concatenate([y0,y1,y2,y3])
@@ -121,17 +122,17 @@ while 1:
     	return;
 
     # Foot print
-    if fz2 >= 100:
+    if fz2 <= -200:
     	RightFoot()
 
-    if fz3 >= 100:
+    if fz3 <= -200:
     	LeftFoot()
 
-    x_left_foot = data0.get(0).asDouble()*1000
-    y_left_foot = data0.get(1).asDouble()*1000
+    x_left_foot = data1.get(0).asDouble()*1000
+    y_left_foot = data1.get(1).asDouble()*1000
 
-    x_right_foot = data1.get(0).asDouble()*1000
-    y_right_foot = data1.get(1).asDouble()*1000
+    x_right_foot = data0.get(0).asDouble()*1000
+    y_right_foot = data0.get(1).asDouble()*1000
 
 
     

@@ -85,7 +85,7 @@ bool RightFootprint::configure(ResourceFinder &rf) {
     inCvPort.useCallback();
     inCvPort.open("/rightFootprint/jr3/ch0:i");
 
-    outFootPrintPort.open("/rightFootprint/state:o");
+    outFootPrintPort.open("/rightFootprint/gui0:o");
     inCvPort.setOutFootPrintPort(&outFootPrintPort);
 
 

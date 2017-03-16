@@ -47,7 +47,7 @@
 
     <module>
         <name>python</name>
-        <parameters></parameters>
+        <parameters>/home/teo/repos/footsteps/programs/plotStep/footCenters.py</parameters>
         <node>localhost</node>
     </module>
     <connection>
@@ -57,6 +57,14 @@
     <connection>
          <from>/rightFootprint/gui0:o</from>
         <to>/python/gui0:i</to>
+    </connection>
+    <connection>
+         <from>/jr3/ch0:o</from>
+        <to>/python/ch0:i</to>
+    </connection>
+    <connection>
+         <from>/jr3/ch1:o</from>
+        <to>/python/ch1:i</to>
     </connection>
 
     <module>
@@ -73,6 +81,4 @@
 
 </application>
 
-yarp.Network.connect("/leftFootprint/state:o", "/gui0:i") # Left foot
-yarp.Network.connect("/rightFootprint/state:o", "/gui1:i") # Right foot
 

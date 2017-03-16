@@ -84,7 +84,7 @@ bool LeftFootprint::configure(ResourceFinder &rf) {
     inCvPort.useCallback();
     inCvPort.open("/leftFootprint/jr3/ch1:i");
 
-    outFootPrintPort.open("/leftFootprint/state:o");
+    outFootPrintPort.open("/leftFootprint/gui1:o");
     inCvPort.setOutFootPrintPort(&outFootPrintPort);
 
 
